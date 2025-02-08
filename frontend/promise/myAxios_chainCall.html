@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function myAxios(config){
+        return new Promise((resolve, reject)=>{
+            const xhr = new XMLHttpRequest();
+            xhr.open(config.method || 'GET', config.url)
+            xhr.addEventListener('loadend',()=>{
+                if(xhr.status === 200){
+                    resolve(xhr.responseText)
+                }else{
+                    reject(xhr.responseText)
+                }
+            })
+            xhr.send()
+        })
+    }
+
+    // .then()方法返回的本身就是promise,后面再return新的promise是为了拿到其他需要的数据,并且通过return传给.then()方法形成的promise
+    myAxios({
+        url: 'http://hmajax.itheima.net/api/province',
+    }).then(res=>{
+        console.log(res)
+        return myAxios({
+            url: 'http://hmajax.itheima.net/api/city?provinceid=1'
+            })
+    }).then(res=>{
+        console.log(res)
+    }).catch(err=>{
+        console.log(err)
+    })
+</script>
+</html>

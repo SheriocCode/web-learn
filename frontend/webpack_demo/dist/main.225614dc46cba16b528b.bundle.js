@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log((r=>{if("1"!==r[0])return!1;for(let e=1;e<11;e++)if(r[e]<"0"||r[e]>"9")return!1;return!0})("13512345678"))})();
